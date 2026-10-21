@@ -54,6 +54,7 @@ const jsonld = {
   ...(ogImage ? { image: ogImage.split("?")[0] } : {}),
   logo: `${d.siteUrl}/img/logo-hs.png`,
   telephone: b.phoneSchema,
+  ...(b.since ? { foundingDate: b.since } : {}),
   address: {
     "@type": "PostalAddress",
     streetAddress: b.street,

@@ -356,6 +356,26 @@
     };
   }
 
+  // Estrelas da nota do Google acendem uma por uma, como LEDs
+  function estrelas() {
+    var grupo = doc.querySelector('[data-estrelas]');
+    if (!grupo || !abaixo(grupo)) return function () {};
+    var itens = [].slice.call(grupo.children);
+    gsap.set(itens, { opacity: 0.15 });
+    var gatilho = ScrollTrigger.create({
+      trigger: grupo, start: 'top 88%', once: true,
+      onEnter: function () {
+        itens.forEach(function (e, i) {
+          gsap.timeline({ delay: 0.3 + i * 0.13 })
+            .to(e, { opacity: 0.9, duration: 0.04, ease: 'none' })
+            .to(e, { opacity: 0.25, duration: 0.05, ease: 'none' }, '+=0.04')
+            .to(e, { opacity: 1, duration: 0.05, ease: 'none' }, '+=0.04');
+        });
+      }
+    });
+    return function () { gatilho.kill(); gsap.set(itens, { clearProps: 'opacity' }); };
+  }
+
   function resto() {
     var lista = gsap.utils.toArray('[data-reveal]').filter(abaixo);
     var mob = fone();
@@ -418,7 +438,7 @@
 
     // Fagulhas do encaixe
     var fagulhas = [];
-    for (var i = 0; i < 7; i++) fagulhas.push(el('line', { 'class': 'c-traco', x1: n(PL), y1: n(SC.y), x2: n(PL), y2: n(SC.y), opacity: 0 }, svg));
+    for (var i = 0; i < 10; i++) fagulhas.push(el('line', { 'class': 'c-traco', x1: n(PL), y1: n(SC.y), x2: n(PL), y2: n(SC.y), opacity: 0 }, svg));
 
     return {
       s: s, lw: lw, lh: lh, LC: LC, BC: BC, SC: SC, PL: PL,
@@ -617,13 +637,14 @@
       ctx.add(function () { return function () { soltarEventos(); }; });
 
       var fios = c.cordao.concat(c.cabo);
+      // A lâmpada "luta" para acender, como uma de verdade, e firma
       function piscarLampada(pos0) {
         tl.to([c.aceso, c.filamento], { opacity: 1, duration: 0.05, ease: 'none' }, pos0)
           .to(fios, { opacity: 1, duration: 0.05, ease: 'none' }, pos0)
-          .to([c.aceso, c.filamento], { opacity: 0.25, duration: 0.05, ease: 'none' }, pos0 + 0.08)
-          .to([c.aceso, c.filamento], { opacity: 1, duration: 0.05, ease: 'none' }, pos0 + 0.15)
-          .to([c.aceso, c.filamento], { opacity: 0.55, duration: 0.04, ease: 'none' }, pos0 + 0.23)
-          .to([c.aceso, c.filamento], { opacity: 1, duration: 0.05, ease: 'none' }, pos0 + 0.29);
+          .to([c.aceso, c.filamento], { opacity: 0.2, duration: 0.06, ease: 'none' }, pos0 + 0.1)
+          .to([c.aceso, c.filamento], { opacity: 0.9, duration: 0.05, ease: 'none' }, pos0 + 0.22)
+          .to([c.aceso, c.filamento], { opacity: 0.35, duration: 0.05, ease: 'none' }, pos0 + 0.32)
+          .to([c.aceso, c.filamento], { opacity: 1, duration: 0.06, ease: 'none' }, pos0 + 0.42);
       }
       function abrir(pos0, dur) {
         tl.call(function () { fundo.classList.add('abrindo'); }, null, pos0)
@@ -650,35 +671,36 @@
         gsap.set([c.lampada, c.tomada], { opacity: 0 });
         gsap.set(c.plugue, { x: c.plugueX, y: c.plugueY });
         gsap.set(logo, { opacity: 0, scale: 0.96, filter: 'brightness(0.35)' });
-        tl.to(c.cordao, { drawSVG: '100%', duration: 0.45, ease: 'power2.out' }, 0.1)
-          .to(c.lampada, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.4)
-          .to(c.tomada, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0.15)
+        // Mais lenta de propósito (pedido do usuário: dar tempo de ver cada parte e chamar a atenção). ~5 s; pula com toque.
+        tl.to(c.cordao, { drawSVG: '100%', duration: 0.65, ease: 'power2.out' }, 0.1)
+          .to(c.tomada, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3)
+          .to(c.lampada, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.6)
           // O cabo sobe com o plugue na ponta e vira para a tomada
-          .to(c.cabo, { drawSVG: (c.fracaoVertical * 100).toFixed(2) + '%', duration: 0.7, ease: 'power2.inOut' }, 0.45)
-          .to(c.plugue, { y: 0, duration: 0.7, ease: 'power2.inOut' }, 0.45)
-          .to(c.cabo, { drawSVG: '100%', duration: 0.18, ease: 'power2.in' }, 1.15)
-          .to(c.plugue, { x: 0, duration: 0.18, ease: 'power2.in' }, 1.15)
+          .to(c.cabo, { drawSVG: (c.fracaoVertical * 100).toFixed(2) + '%', duration: 1.05, ease: 'power2.inOut' }, 0.85)
+          .to(c.plugue, { y: 0, duration: 1.05, ease: 'power2.inOut' }, 0.85)
+          .to(c.cabo, { drawSVG: '100%', duration: 0.24, ease: 'power2.in' }, 2.0)
+          .to(c.plugue, { x: 0, duration: 0.24, ease: 'power2.in' }, 2.0)
           // Encaixe: um tranco, faísca e a tomada acende por um instante
-          .to(c.plugue, { x: -1.5 * c.s, duration: 0.05, ease: 'power1.out' }, 1.33)
-          .to(c.plugue, { x: 0, duration: 0.08, ease: 'power1.in' }, 1.38)
-          .to(c.espelho, { attr: { 'stroke-width': 2.6 }, duration: 0.05, ease: 'none' }, 1.33)
-          .to(c.espelho, { attr: { 'stroke-width': 1.6 }, duration: 0.3, ease: 'power2.out' }, 1.4)
-          .to(c.furos, { attr: { fill: '#ffd978' }, duration: 0.04, ease: 'none' }, 1.33)
-          .to(c.furos, { attr: { fill: '#000000' }, duration: 0.25, ease: 'power2.out' }, 1.45);
+          .to(c.plugue, { x: -1.5 * c.s, duration: 0.05, ease: 'power1.out' }, 2.24)
+          .to(c.plugue, { x: 0, duration: 0.08, ease: 'power1.in' }, 2.29)
+          .to(c.espelho, { attr: { 'stroke-width': 2.8 }, duration: 0.05, ease: 'none' }, 2.24)
+          .to(c.espelho, { attr: { 'stroke-width': 1.6 }, duration: 0.35, ease: 'power2.out' }, 2.31)
+          .to(c.furos, { attr: { fill: '#ffd978' }, duration: 0.04, ease: 'none' }, 2.24)
+          .to(c.furos, { attr: { fill: '#000000' }, duration: 0.3, ease: 'power2.out' }, 2.38);
         c.fagulhas.forEach(function (fg, i) {
-          var ang = (-150 + i * 50) * Math.PI / 180, comp = (10 + Math.random() * 8) * c.s;
+          var ang = (-160 + i * 36) * Math.PI / 180, comp = (12 + Math.random() * 10) * c.s;
           var x0 = c.PL, y0 = c.SC.y;
           tl.fromTo(fg, { attr: { x1: x0, y1: y0, x2: x0, y2: y0 }, opacity: 1 }, {
             attr: { x1: x0 + Math.cos(ang) * comp * 0.5, y1: y0 + Math.sin(ang) * comp * 0.5, x2: x0 + Math.cos(ang) * comp, y2: y0 + Math.sin(ang) * comp },
-            opacity: 0, duration: 0.28, ease: 'power2.out'
-          }, 1.33);
+            opacity: 0, duration: 0.4, ease: 'power2.out'
+          }, 2.24);
         });
-        // A lâmpada pisca e acende; a luz dela mostra a logo
-        piscarLampada(1.42);
-        tl.to(luz, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }, 1.62)
-          .to(logo, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.65, ease: 'power3.out' }, 1.66);
-        abrir(2.3, 1);
-        tl.add(heroIn(false), 2.6);
+        // A lâmpada pisca e acende; a luz dela mostra a logo, que fica um instante na tela
+        piscarLampada(2.36);
+        tl.to(luz, { opacity: 1, scale: 1, duration: 0.75, ease: 'power2.out' }, 2.62)
+          .to(logo, { opacity: 1, scale: 1, filter: 'brightness(1)', duration: 0.85, ease: 'power3.out' }, 2.68);
+        abrir(4.0, 1.1);
+        tl.add(heroIn(false), 4.35);
       }
     }
 
@@ -691,6 +713,7 @@
       limpezas.push(disjuntores());
       limpezas.push(fotosAcendem());
       limpezas.push(leds());
+      limpezas.push(estrelas());
       resto();
     });
     if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(function () { if (ctx.vivo) ScrollTrigger.refresh(); });

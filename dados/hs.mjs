@@ -27,15 +27,16 @@ export const brand = {
   city: "Senador Canedo",
   state: "GO",
   postalCode: "75264-083",
-  /** PENDENTE: link da ficha do Google (para "Ver avaliações"). Sem ele, o site não mostra avaliações. */
+  /** PENDENTE: link direto da ficha do Google. Enquanto isso, "Ver no Google" usa a busca do Maps (maps.href). */
   googleProfileHref: null,
-  /** PENDENTE: razão social e CNPJ (contrato; rodapé, se o cliente quiser). */
-  legalName: null,
-  cnpj: null,
+  /** Enviados pelo usuário em 20/10/2026 e conferidos na Receita Federal (CNPJ ativo, MEI, "Instalação e manutenção elétrica").
+   *  A razão social oficial do MEI tem o CPF no fim; aqui fica só o nome, como o usuário mandou. */
+  legalName: "Hugo Alves de Sousa",
+  cnpj: "39.864.669/0001-67",
   /** PENDENTE: nome do responsável técnico e registro no CREA, se o cliente quiser mostrar. */
   responsavelTecnico: null,
-  /** PENDENTE: ano em que a empresa começou (só se for verdade). */
-  since: null,
+  /** Início das atividades no CNPJ (Receita Federal): 21/11/2020. Vai só no JSON-LD (foundingDate). */
+  since: "2020-11-21",
   /** PENDENTE: cidades atendidas além de Senador Canedo (ex.: Goiânia). Confirmar antes de citar. */
   areaServed: null,
 };
@@ -174,16 +175,31 @@ export const instagramStories = [
   { name: "ig-quadro-celular", width: 361, height: 640, alt: "Eletricista conferindo um quadro de energia com o celular" },
 ];
 
+/**
+ * Avaliações do Google, copiadas da ficha pelo usuário em 20/10/2026 (nota 5,0 em 17 avaliações, todas de 5 estrelas).
+ * Texto dos clientes como está no Google; só a pontuação foi acertada (vírgula, espaço, ponto).
+ * Ficaram de fora as sem texto, as de uma ou duas palavras e as que precisariam de correção de escrita.
+ * Quando a nota ou a quantidade mudarem no Google, atualize googleRating.
+ */
+export const googleRating = { value: "5,0", count: 17, checked: "2026-10-20" };
+
+export const reviews = [
+  { author: "Eroíde Nasareth", text: "Serviço rápido e de confiança! Chamei para fazer o serviço e chegaram no horário marcado, foram super atenciosos e o problema foi resolvido. Super indico!" },
+  { author: "Adryanna Castro", text: "Equipe de ótimos profissionais, me atenderam com agilidade e profissionalismo!" },
+  { author: "Jardel Dourado", text: "Excelente profissional, atencioso e trabalho executado da forma correta." },
+  { author: "Diego Rafael", text: "Super recomendo. Ótimo prestador! Foi prestativo e resolveu o problema!" },
+  { author: "Wellington", text: "Ótimo profissional, responsável e zela pela qualidade." },
+  { author: "Everlin Salt", text: "Gostaria de parabenizar os serviços prestados pela HS, uma empresa com atendimento de qualidade e eficiência na prestação de serviços." },
+];
+
 /** O que ainda falta do cliente (aparece no CLAUDE.md e no resumo de entrega). */
 export const pendencias = [
   "Logo original em alta (PNG ou SVG): o atual foi recortado de um story do Instagram (361 px).",
-  "Link da ficha do Google, para mostrar a nota e as avaliações reais.",
+  "Link direto da ficha do Google (hoje o \"Ver no Google\" usa a busca do Maps pelo nome e endereço).",
   "Horário nos feriados (hoje o site pede para confirmar pelo WhatsApp).",
   "Cidades atendidas além de Senador Canedo, se o cliente quiser citar (ex.: Goiânia).",
   "Nome do responsável técnico e registro no CREA, se o cliente quiser mostrar.",
-  "Ano de início da empresa, se quiser mostrar.",
   "Vídeos originais dos reels (LED, interfone, carregador) para trocar os prints do Instagram.",
   "Domínio próprio (hoje: endereço provisório na Vercel).",
-  "Razão social e CNPJ, para o contrato.",
   "ID do Google Analytics (G-...), se quiser medir visitas. Sem ele, o site não tem aviso de cookies.",
 ];

@@ -6,6 +6,10 @@ e `site-agencia` (acabamento). Cliente: HS Engenharia e Elétrica (contato: Hugo
 ## Fonte dos dados (nada inventado)
 
 - Nome, endereço e horários: ficha do Google, copiada em `HS ENGENHARIA E ELETRICA.txt`.
+- Avaliações: copiadas da ficha do Google pelo usuário (20/10/2026): nota 5,0 em 17 avaliações; seis no site, com a
+  pontuação acertada. Atualize `googleRating` quando a nota ou a quantidade mudarem.
+- CNPJ 39.864.669/0001-67 (Hugo Alves de Sousa, MEI, ativo desde 21/11/2020): enviado pelo usuário e conferido na
+  Receita Federal; vai no rodapé e no contrato.
 - WhatsApp (62) 99165-3028 e Instagram @hsservicoseletricos: o mesmo arquivo; o número aparece na camisa da equipe.
 - Serviços: bio do Instagram (engenharia civil e elétrica, projetos, obras, regularização, segurança contra incêndio,
   aprovações, alvarás, RT) e o que aparece nas fotos (LED, quadros, carregador de carro elétrico, interfone coletivo).
@@ -45,7 +49,8 @@ WhatsApp flutuante), `site/js/movimento.js` (abertura, fio com faísca, revelaç
 
 O usuário pediu a abertura com tomada e lâmpada, o fio como "um tipo de curto-circuito" que acende o botão do WhatsApp,
 tudo no tema de serviços elétricos, e sem lembrar o portfólio dele.
-- **Abertura** (primeira visita, ~3,3 s; curta ao recarregar ou voltar na sessão; pula com toque, rolagem ou tecla):
+- **Abertura** (primeira visita, ~5 s, mais lenta a pedido do usuário para chamar a atenção; curta ao recarregar ou voltar
+  na sessão; pula com toque, rolagem ou tecla; a trava de segurança no `<head>` solta a página em 9 s):
   uma lâmpada desce do teto e uma tomada de três pinos aparece ao lado da logo (perto do plugue do desenho da logo);
   o cabo sobe com o plugue, que encaixa com uma faísca; a lâmpada pisca e acende, e a luz dela mostra a logo; a luz se
   espalha (máscara radial a partir da lâmpada) e abre a página. Depois, os perfis de LED da foto do topo acendem.

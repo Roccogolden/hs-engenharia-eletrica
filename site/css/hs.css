@@ -360,6 +360,34 @@ html.linha-ativa .hero__foto { outline: none; }
 .story--perfil strong { font-size: 0.875rem; font-weight: 600; word-break: break-all; }
 .story--perfil:hover { border-color: var(--amarelo); }
 
+/* ---------- Avaliações do Google ---------- */
+.estrelas { margin: 0; color: var(--amarelo); letter-spacing: 0.14em; font-size: 0.9375rem; line-height: 1; }
+.estrelas i { font-style: normal; }
+.estrelas--grandes { font-size: 1.6rem; text-shadow: 0 0 12px rgba(244, 184, 28, 0.45); }
+.nota { display: grid; gap: 10px; justify-items: start; }
+.nota__valor { display: flex; align-items: center; gap: 16px; }
+.nota__numero { font-family: var(--f-titulo); font-size: clamp(2.6rem, 2rem + 2vw, 3.6rem); font-weight: 750; font-stretch: 112%; line-height: 1; }
+.nota__texto { max-width: 30em; color: var(--suave); }
+.nota__texto a { color: var(--texto); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--linha-forte); transition: color 0.2s var(--curva), border-color 0.2s var(--curva); }
+.nota__texto a:hover { color: var(--amarelo-2); border-color: var(--amarelo); }
+@media (min-width: 1024px) { .secao__cabeca .nota { justify-self: end; } }
+.galeria--avaliacoes .galeria__trilho { --card: min(84vw, 320px); }
+@media (min-width: 640px) { .galeria--avaliacoes .galeria__trilho { --card: 360px; } }
+.galeria--avaliacoes .galeria__item { display: flex; }
+.avaliacao {
+  margin: 0; display: flex; flex-direction: column; gap: 16px; width: 100%; padding: 26px 24px 22px;
+  border: 1px solid var(--linha); border-radius: var(--raio); background: var(--fundo-2);
+}
+.avaliacao blockquote { margin: 0; flex: 1; }
+.avaliacao blockquote p { font-size: 1.0625rem; line-height: 1.55; color: var(--texto); }
+.avaliacao figcaption { display: flex; flex-direction: column; gap: 2px; padding-top: 14px; border-top: 1px solid var(--linha); }
+.avaliacao figcaption strong { font-family: var(--f-titulo); font-weight: 700; font-stretch: 108%; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.875rem; }
+.avaliacao figcaption span { font-size: 0.875rem; color: var(--fraco); }
+.hero__nota { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 4px; text-decoration: none; font-family: var(--f-titulo); font-weight: 600; font-size: 0.9375rem; color: var(--texto); justify-self: start; }
+.hero__nota-texto { color: var(--suave); border-bottom: 1px solid var(--linha-forte); transition: color 0.2s var(--curva), border-color 0.2s var(--curva); }
+.hero__nota-texto strong { color: var(--texto); }
+.hero__nota:hover .hero__nota-texto { color: var(--amarelo-2); border-color: var(--amarelo); }
+
 /* ---------- Foto ampliada ---------- */
 .caixa-foto {
   position: fixed; inset: 0; z-index: 110; display: grid; place-items: center; padding: 64px 16px 24px;

@@ -56,12 +56,12 @@ ${ogImage ? `<meta property="og:image" content="${ogImage}">
 <link rel="preload" href="/fonts/saira-latin-100-900.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/barlow-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 ${comIntro ? `<script>
-  // Abertura: só com movimento liberado. Ela trava a rolagem; se o JavaScript falhar, a página se solta sozinha em 7 s.
+  // Abertura: só com movimento liberado. Ela trava a rolagem; se o JavaScript falhar, a página se solta sozinha em 9 s.
   (function () {
     try {
       if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.classList.add('has-intro');
-        setTimeout(function () { document.documentElement.classList.remove('has-intro'); }, 7000);
+        setTimeout(function () { document.documentElement.classList.remove('has-intro'); }, 9000);
       }
     } catch (e) {}
   })();
@@ -86,6 +86,7 @@ function topo(d, { naHome }) {
     <nav class="topo__nav" aria-label="Seções">
       <a href="${pre}#servicos">Serviços</a>
       <a href="${pre}#obras">Obras</a>
+      <a href="${pre}#avaliacoes">Avaliações</a>
       <a href="${pre}#contato">Contato</a>
       <a class="topo__orcamento" href="${pre}#orcamento">Orçamento</a>
     </nav>
@@ -98,6 +99,7 @@ function topo(d, { naHome }) {
   <nav class="wrap menu-movel__nav" aria-label="Menu">
     <a href="${pre}#servicos">Serviços ${icones.seta}</a>
     <a href="${pre}#obras">Obras ${icones.seta}</a>
+    <a href="${pre}#avaliacoes">Avaliações ${icones.seta}</a>
     <a href="${pre}#contato">Endereço e horário ${icones.seta}</a>
     <a href="${pre}#orcamento">Pedir orçamento ${icones.seta}</a>
   </nav>
@@ -134,7 +136,7 @@ function rodape(d) {
     </div>
   </div>
   <div class="wrap rodape__base">
-    <p>© ${new Date().getFullYear()} ${esc(b.name)} · ${esc(b.tagline)}</p>
+    <p>© ${new Date().getFullYear()} ${esc(b.name)} · ${esc(b.tagline)}${b.cnpj ? ` · CNPJ ${esc(b.cnpj)}` : ""}</p>
     <p data-cookies></p>
   </div>
 </footer>`;
@@ -228,6 +230,45 @@ ${d.instagramStories
     </div>`;
 }
 
+function avaliacoes(d) {
+  const nota = d.googleRating;
+  const n = d.reviews.length;
+  return `
+  <section class="secao avaliacoes" id="avaliacoes" aria-labelledby="avaliacoes-titulo">
+    <div class="wrap">
+      <div class="secao__cabeca">
+        <h2 class="titulo" id="avaliacoes-titulo" data-titulo>Avaliações no Google</h2>
+        <div class="nota" data-reveal>
+          <p class="nota__valor"><span class="nota__numero">${esc(nota.value)}</span><span class="estrelas estrelas--grandes" data-estrelas aria-hidden="true"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></span></p>
+          <p class="nota__texto">Nota ${esc(nota.value)} em ${nota.count} avaliações na ficha da HS no Google. <a href="${d.maps.href}" target="_blank" rel="noopener">Ver no Google</a></p>
+        </div>
+      </div>
+      <div class="galeria galeria--avaliacoes" data-carrossel data-reveal role="region" aria-roledescription="carrossel" aria-label="Avaliações de clientes">
+        <div class="galeria__cabeca">
+          <h3 class="galeria__titulo">O que os clientes escreveram</h3>
+          <div class="galeria__setas">
+            <button type="button" class="seta" data-anterior aria-label="Avaliações anteriores">${icones.esquerda}</button>
+            <button type="button" class="seta" data-proxima aria-label="Próximas avaliações">${icones.seta}</button>
+          </div>
+        </div>
+        <ul class="galeria__trilho" data-trilho>
+${d.reviews
+  .map(
+    (r, i) => `          <li class="galeria__item" aria-label="${i + 1} de ${n}">
+            <figure class="avaliacao">
+              <p class="estrelas" role="img" aria-label="5 de 5 estrelas">★★★★★</p>
+              <blockquote><p>“${esc(r.text)}”</p></blockquote>
+              <figcaption><strong>${esc(r.author)}</strong><span>Avaliação no Google</span></figcaption>
+            </figure>
+          </li>`,
+  )
+  .join("\n")}
+        </ul>
+      </div>
+    </div>
+  </section>`;
+}
+
 export function paginaInicial(d, ctx) {
   const b = d.brand;
   const h = d.heroPhoto;
@@ -270,6 +311,7 @@ ${topo(d, { naHome: true })}
           <a class="botao botao--linha" href="#obras">Ver obras</a>
         </div>
         <div class="hero__horario" data-hero-item>
+          <a class="hero__nota" href="#avaliacoes"><span class="estrelas" aria-hidden="true">★★★★★</span><span class="hero__nota-texto"><strong>${esc(d.googleRating.value)}</strong> no Google · ${d.googleRating.count} avaliações</span></a>
           <p class="status" data-status aria-live="polite"><span class="status__ponto" aria-hidden="true"></span><span data-status-texto>${esc(resumoHorario)}</span></p>
           <p class="hero__semana">${esc(resumoHorario)}</p>
         </div>
@@ -318,6 +360,7 @@ ${d.galleries.map(carrossel).join("\n")}
 ${stories(d)}
     </div>
   </section>
+${avaliacoes(d)}
 
   <section class="secao contato" id="contato" aria-labelledby="contato-titulo">
     <div class="wrap contato__grade">
