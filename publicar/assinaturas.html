@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<!-- Quadro-chave das três assinaturas consideradas para a HS (para o usuário comparar; não vai para o site).
+     Gerar: node "%USERPROFILE%/.claude/skills/site-agencia/scripts/renderizar-html.mjs" publicar/assinaturas.html - publicar/assinaturas-consideradas.jpg 1800 1050 90 -->
+<style>
+  @font-face { font-family: "Archivo"; src: url("../site/fonts/archivo-latin.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1800px; height: 1050px; overflow: hidden; background: #070708; color: #f2f0eb; font-family: "Archivo", Arial, sans-serif; padding: 48px 48px 0; }
+  h1 { font-size: 34px; font-weight: 740; font-stretch: 114%; letter-spacing: -.01em; }
+  .sub { margin-top: 8px; color: #a6a29a; font-size: 18px; }
+  .grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 30px; }
+  .op { background: #0b0b0c; border: 1px solid #2a2a2e; border-radius: 10px; overflow: hidden; }
+  .op.escolhida { border-color: #f4b81c; }
+  .quadro { position: relative; height: 470px; background: #0b0b0c; border-bottom: 1px solid #2a2a2e; }
+  .quadro svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .info { padding: 22px 24px 26px; }
+  .tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: #1b1b1e; color: #a6a29a; }
+  .escolhida .tag { background: rgba(244,184,28,.16); color: #f4b81c; }
+  h2 { margin-top: 12px; font-size: 26px; font-weight: 720; font-stretch: 112%; }
+  dl { margin-top: 14px; display: grid; grid-template-columns: 112px 1fr; gap: 8px 12px; font-size: 15.5px; line-height: 1.45; }
+  dt { color: #f4b81c; font-weight: 650; }
+  dd { margin: 0; color: #c9c5bd; }
+  .rot { font: 600 13px "Archivo", Arial; fill: #a6a29a; letter-spacing: .04em; }
+</style></head>
+<body>
+  <h1>Assinaturas consideradas para a HS Engenharia e Elétrica</h1>
+  <p class="sub">Cada uma tirada do ofício da HS. Quadro-chave e os quatro momentos (abertura, ao longo da página, fechamento e fora do site).</p>
+  <div class="grade">
+
+    <section class="op escolhida">
+      <div class="quadro">
+        <svg viewBox="0 0 560 470">
+          <defs><filter id="b1"><feGaussianBlur stdDeviation="4"/></filter></defs>
+          <rect x="300" y="60" width="200" height="250" fill="#2a2925"/>
+          <g stroke="#ffe7a8" stroke-width="3" fill="none"><path d="M392 70 L430 222 L338 236"/><path d="M448 96 L470 262 L376 270"/></g>
+          <g stroke="rgba(255,214,120,.7)" stroke-width="10" fill="none" filter="url(#b1)"><path d="M392 70 L430 222 L338 236"/><path d="M448 96 L470 262 L376 270"/></g>
+          <path d="M512 322 V48 H288 V322 H512 H530 V430 H120 V405" fill="none" stroke="rgba(244,184,28,.2)" stroke-width="7"/>
+          <path d="M512 322 V48 H288 V322 H512 H530 V430 H120 V405" fill="none" stroke="#ffd978" stroke-width="1.8"/>
+          <rect x="36" y="356" width="168" height="40" rx="5" fill="#f4b81c"/>
+          <text x="120" y="381" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="14" fill="#111">Chamar no WhatsApp</text>
+          <rect x="27" y="347" width="186" height="58" fill="none" stroke="#ffd978" stroke-width="1.8"/>
+          <text x="40" y="70" font-family="Archivo" font-weight="760" font-size="30" font-stretch="116%" fill="#f2f0eb">Engenharia</text>
+          <text x="40" y="104" font-family="Archivo" font-weight="760" font-size="30" font-stretch="116%" fill="#f2f0eb">civil e elétrica</text>
+          <rect x="40" y="130" width="120" height="8" rx="2" fill="#2a2a2e"/><rect x="40" y="146" width="180" height="8" rx="2" fill="#2a2a2e"/>
+        </svg>
+      </div>
+      <div class="info">
+        <span class="tag">Escolhida</span>
+        <h2>Linha de luz</h2>
+        <dl>
+          <dt>Abertura</dt><dd>A linha desenha um retângulo, pisca como LED ligando, o logo aparece e a luz abre a página. Os perfis de LED da foto do topo acendem.</dd>
+          <dt>Ao longo</dt><dd>Da moldura da foto sai a linha, que desce pelas margens com cantos retos, como o perfil embutido no forro. As réguas dos serviços acendem.</dd>
+          <dt>Fechamento</dt><dd>A linha contorna o botão do WhatsApp e ele acende.</dd>
+          <dt>Fora do site</dt><dd>O logo na moldura de luz na prévia do link, no kit e na tela final do vídeo; a 404 é um fio interrompido.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="op">
+      <div class="quadro">
+        <svg viewBox="0 0 560 470">
+          <rect x="70" y="70" width="150" height="250" rx="10" fill="#eceae4"/>
+          <rect x="70" y="70" width="150" height="60" rx="10" fill="#dcd9d1"/>
+          <text x="145" y="108" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="20" fill="#333">C25</text>
+          <rect x="112" y="150" width="66" height="120" rx="6" fill="#cfcbc2"/>
+          <rect x="118" y="156" width="54" height="52" rx="5" fill="#1a1a1a"/>
+          <text x="145" y="300" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="16" fill="#1f8f4e">I · ON</text>
+          <path d="M220 190 H300 V120 H470 V300 H360 V380 H300" fill="none" stroke="#f4b81c" stroke-width="2.2"/>
+          <circle cx="300" cy="380" r="5" fill="#f4b81c"/>
+          <rect x="220" y="390" width="160" height="42" rx="5" fill="#f4b81c"/>
+          <text x="300" y="416" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="14" fill="#111">Chamar no WhatsApp</text>
+          <text x="476" y="114" class="rot">C1</text><text x="476" y="296" class="rot">C2</text>
+        </svg>
+      </div>
+      <div class="info">
+        <span class="tag">Alternativa</span>
+        <h2>Disjuntor que liga</h2>
+        <dl>
+          <dt>Abertura</dt><dd>A alavanca de um disjuntor sobe de "O" para "I" e a energia acende a página.</dd>
+          <dt>Ao longo</dt><dd>Os serviços viram circuitos de um quadro (C1, C2...) ligados por um traço de diagrama unifilar.</dd>
+          <dt>Fechamento</dt><dd>O circuito termina no botão do WhatsApp, que é a carga que acende.</dd>
+          <dt>Fora do site</dt><dd>O disjuntor ligado nas peças; a 404 é um disjuntor desarmado.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section class="op">
+      <div class="quadro">
+        <svg viewBox="0 0 560 470">
+          <g stroke="#1d2a3a" stroke-width="1"><path d="M0 60 H560 M0 120 H560 M0 180 H560 M0 240 H560 M0 300 H560 M0 360 H560 M0 420 H560 M80 0 V470 M160 0 V470 M240 0 V470 M320 0 V470 M400 0 V470 M480 0 V470"/></g>
+          <rect x="150" y="90" width="260" height="210" fill="#2a2925"/>
+          <g stroke="#f4b81c" stroke-width="1.6" fill="none">
+            <path d="M150 64 H410 M150 56 V72 M410 56 V72"/><path d="M436 90 V300 M428 90 H444 M428 300 H444"/>
+            <path d="M160 64 l-10 0 m0 0 l8 -4 m-8 4 l8 4"/>
+          </g>
+          <text x="280" y="50" text-anchor="middle" font-family="Archivo" font-weight="650" font-size="15" fill="#f4b81c">4,20 m</text>
+          <text x="470" y="200" font-family="Archivo" font-weight="650" font-size="15" fill="#f4b81c">3,10 m</text>
+          <rect x="190" y="360" width="170" height="44" rx="5" fill="#f4b81c"/>
+          <text x="275" y="387" text-anchor="middle" font-family="Archivo" font-weight="700" font-size="14" fill="#111">Chamar no WhatsApp</text>
+          <g stroke="#f4b81c" stroke-width="1.4"><path d="M190 424 H360 M190 416 V432 M360 416 V432"/></g>
+          <text x="275" y="450" text-anchor="middle" class="rot">170 × 44</text>
+        </svg>
+      </div>
+      <div class="info">
+        <span class="tag">Alternativa</span>
+        <h2>Cota de projeto</h2>
+        <dl>
+          <dt>Abertura</dt><dd>Uma planta se desenha em linhas de projeto e vira a página.</dd>
+          <dt>Ao longo</dt><dd>Linhas de cota medem as fotos e os blocos ao entrarem na tela, como numa prancha de engenharia.</dd>
+          <dt>Fechamento</dt><dd>O botão do WhatsApp recebe a cota final.</dd>
+          <dt>Fora do site</dt><dd>Peças com fundo de prancha; a 404 é uma cota sem medida.</dd>
+        </dl>
+      </div>
+    </section>
+  </div>
+</body></html>

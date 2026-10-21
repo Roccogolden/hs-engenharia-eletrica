@@ -1,0 +1,14 @@
+# Material original do cliente (fotos de WhatsApp e prints do Instagram): o site usa só as cópias tratadas em site/img
+HS servicos eletricos (@hsservicoseletricos) • Fotos e vídeos do Instagram/
+HS ENGENHARIA E ELETRICA.txt
+
+# Gerado pelo build
+dist/
+
+# Filmagens e rascunhos do kit (as peças finais ficam em divulgacao/)
+publicar/filmagem/
+node_modules/
+.vercel/
+
+# Material comercial do usuário (preços e contrato): fica só neste computador
+publicar/mensagem-cliente.txt

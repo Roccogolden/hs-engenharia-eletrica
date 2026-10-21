@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<!-- Peças do kit de lançamento da HS Engenharia e Elétrica. Cada peça é uma seção; ?card=<id> mostra só ela.
+     Gerar todas: node publicar/gerar-kit.mjs (usa os prints de divulgacao/prints/, tirados do site de verdade).
+     Status: 1080 x 1920, conteúdo entre y = 250 e y = 1650 (o WhatsApp cobre o topo e a base). Grupos: 1080 x 1080.
+     Assinatura: a moldura de luz (perfil de LED) em volta do logo e, no fim, em volta do botão do WhatsApp. -->
+<style>
+  @font-face { font-family: "Archivo"; src: url("../site/fonts/archivo-latin.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+  :root {
+    --fundo: #0b0b0c; --texto: #f2f0eb; --suave: #a6a29a; --destaque: #f4b81c; --led: #ffd978; --tinta: #111111;
+    --linha: #2a2a2e; --cartao: #131315;
+    --f: "Archivo", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { overflow: hidden; background: var(--fundo); color: var(--texto); font-family: var(--f); }
+  body.status { width: 1080px; height: 1920px; }
+  body.quadrado { width: 1080px; height: 1080px; }
+  .card { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--fundo); }
+  .card[hidden] { display: none; }
+  p, h1 { text-wrap: balance; }
+
+  .eyebrow { font-size: 34px; font-weight: 650; line-height: 1.35; color: var(--destaque); }
+  .titulo { font-size: 100px; line-height: 1; font-weight: 760; font-stretch: 116%; letter-spacing: -0.018em; }
+  .lede { font-size: 38px; line-height: 1.42; color: var(--suave); }
+  .url { font-size: 40px; font-weight: 650; font-stretch: 104%; color: var(--destaque); letter-spacing: 0.01em; }
+
+  /* Assinatura: moldura de luz (fio quente + halo amarelo), cantos retos como o perfil de LED */
+  .luz { position: relative; display: inline-block; }
+  .luz::before, .luz::after { content: ""; position: absolute; inset: calc(var(--folga, 22px) * -1); pointer-events: none; }
+  .luz::before { border: 9px solid rgba(244, 184, 28, 0.2); filter: blur(5px); }
+  .luz::after { border: 2.5px solid var(--led); }
+
+  .celular { position: absolute; aspect-ratio: 780 / 1688; border-radius: 40px; border: 10px solid #1d1d1f; overflow: hidden; background: #1d1d1f; box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55); }
+  .celular img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .janela { position: absolute; border-radius: 14px; overflow: hidden; border: 2px solid var(--linha); background: var(--cartao); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5); }
+  .janela .barra { display: flex; gap: 10px; align-items: center; height: 36px; padding: 0 16px; border-bottom: 2px solid var(--linha); }
+  .janela .barra i { width: 12px; height: 12px; border-radius: 50%; background: var(--suave); opacity: 0.45; }
+  .janela img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; }
+  .assina { position: absolute; left: 90px; right: 90px; top: 1560px; display: flex; align-items: center; justify-content: space-between; padding-top: 26px; border-top: 2px solid var(--linha); font-size: 30px; font-weight: 700; font-stretch: 108%; }
+  .assina b { font-size: 30px; font-weight: 650; color: var(--destaque); font-stretch: 100%; }
+
+  /* 1. Apresentação */
+  #apresentacao .centro { position: absolute; left: 90px; right: 90px; top: 250px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  #apresentacao .luz { --folga: 30px; margin-top: 64px; }
+  #apresentacao .luz img { display: block; width: 348px; }
+  #apresentacao .lede { margin-top: 70px; max-width: 860px; }
+  #apresentacao .leque { position: relative; width: 820px; height: 560px; margin-top: 56px; }
+  #apresentacao .url { position: absolute; left: 0; right: 0; top: 1588px; text-align: center; }
+
+  /* 2 a 4. Destaques */
+  .destaque .inner { position: absolute; left: 90px; right: 90px; top: 250px; height: 1270px; display: flex; flex-direction: column; }
+  .destaque .titulo { margin-top: 20px; font-size: 92px; }
+  .destaque .lede { margin-top: 28px; }
+  .destaque .mock { position: relative; height: 700px; margin-top: auto; }
+  .destaque .janela { left: 0; top: 40px; width: 760px; }
+  .destaque .celular { right: 0; top: 0; width: 290px; }
+
+  /* 5. Contato */
+  #contato .inner { position: absolute; left: 90px; right: 90px; top: 420px; }
+  #contato .titulo { font-size: 112px; }
+  #contato .lede { margin-top: 40px; font-size: 40px; max-width: 860px; }
+  #contato .luz { --folga: 20px; margin-top: 96px; }
+  #contato .botao { display: inline-flex; align-items: center; gap: 30px; padding: 34px 50px; border-radius: 8px; background: var(--destaque); color: var(--tinta); }
+  #contato .botao svg { width: 70px; height: 70px; }
+  #contato .botao span { display: flex; flex-direction: column; gap: 6px; }
+  #contato .botao strong { font-size: 52px; font-weight: 760; font-stretch: 108%; }
+  #contato .botao small { font-size: 36px; font-weight: 650; opacity: 0.8; }
+  #contato .url { margin-top: 110px; }
+  #contato .local { margin-top: 16px; font-size: 32px; font-weight: 600; color: var(--suave); }
+
+  /* Grupos (quadrado) */
+  #grupos .texto { position: absolute; left: 80px; top: 232px; width: 540px; }
+  #grupos .eyebrow { font-size: 26px; }
+  #grupos .luz { --folga: 20px; margin-top: 52px; margin-left: 20px; }
+  #grupos .luz img { display: block; width: 300px; }
+  #grupos .lede { margin-top: 56px; font-size: 31px; }
+  #grupos .url { margin-top: 44px; font-size: 27px; }
+  #grupos .zap { margin-top: 12px; font-size: 30px; font-weight: 700; }
+  #grupos .zap span { color: var(--suave); font-weight: 600; }
+  #grupos .leque { position: absolute; right: 50px; top: 262px; width: 400px; height: 560px; }
+</style></head>
+<body>
+
+  <section class="card" id="apresentacao" data-size="status">
+    <div class="centro">
+      <p class="eyebrow">Engenharia civil e elétrica · Senador Canedo – GO</p>
+      <div class="luz"><img src="../site/img/logo-hs.png" alt=""></div>
+      <p class="lede">Site novo, com os serviços, as fotos das obras, o horário e o orçamento pelo WhatsApp.</p>
+      <div class="leque">
+        <div class="celular" style="left:0;top:70px;width:240px;z-index:1"><img src="../divulgacao/prints/cel-obras.png" alt=""></div>
+        <div class="celular" style="left:290px;top:0;width:240px;z-index:2"><img src="../divulgacao/prints/cel-topo.png" alt=""></div>
+        <div class="celular" style="left:580px;top:70px;width:240px;z-index:3"><img src="../divulgacao/prints/cel-orcamento.png" alt=""></div>
+      </div>
+    </div>
+    <p class="url">hs-engenharia-eletrica.vercel.app</p>
+  </section>
+
+  <section class="card destaque" id="servicos" data-size="status">
+    <div class="inner">
+      <p class="eyebrow">Serviços</p>
+      <h1 class="titulo">Do projeto à regularização</h1>
+      <p class="lede">Projetos, instalações elétricas, iluminação em LED, carregador de carro elétrico, segurança contra incêndio, alvarás e RT. Cada serviço tem o botão que pede o orçamento no WhatsApp.</p>
+      <div class="mock">
+        <div class="janela"><div class="barra"><i></i><i></i><i></i></div><img src="../divulgacao/prints/pc-servicos.png" alt=""></div>
+        <div class="celular"><img src="../divulgacao/prints/cel-servicos.png" alt=""></div>
+      </div>
+    </div>
+    <p class="assina"><span>HS Engenharia e Elétrica</span><b>hs-engenharia-eletrica.vercel.app</b></p>
+  </section>
+
+  <section class="card destaque" id="obras" data-size="status">
+    <div class="inner">
+      <p class="eyebrow">Obras</p>
+      <h1 class="titulo">Fotos tiradas nas obras</h1>
+      <p class="lede">Iluminação em LED, quadros de distribuição e carregador de carro elétrico, durante e depois da instalação.</p>
+      <div class="mock">
+        <div class="janela"><div class="barra"><i></i><i></i><i></i></div><img src="../divulgacao/prints/pc-obras.png" alt=""></div>
+        <div class="celular"><img src="../divulgacao/prints/cel-obras.png" alt=""></div>
+      </div>
+    </div>
+    <p class="assina"><span>HS Engenharia e Elétrica</span><b>hs-engenharia-eletrica.vercel.app</b></p>
+  </section>
+
+  <section class="card destaque" id="horario" data-size="status">
+    <div class="inner">
+      <p class="eyebrow">Endereço e horário</p>
+      <h1 class="titulo">Atendendo agora?</h1>
+      <p class="lede">O site mostra se a HS está atendendo, o horário da semana e o caminho até o Residencial Prado no mapa.</p>
+      <div class="mock">
+        <div class="janela"><div class="barra"><i></i><i></i><i></i></div><img src="../divulgacao/prints/pc-contato.png" alt=""></div>
+        <div class="celular"><img src="../divulgacao/prints/cel-contato.png" alt=""></div>
+      </div>
+    </div>
+    <p class="assina"><span>HS Engenharia e Elétrica</span><b>hs-engenharia-eletrica.vercel.app</b></p>
+  </section>
+
+  <section class="card" id="contato" data-size="status">
+    <div class="inner">
+      <h1 class="titulo">Conte o que você precisa</h1>
+      <p class="lede">O orçamento é feito pelo WhatsApp. Mande fotos do local e diga o que precisa: projeto, obra, instalação ou regularização.</p>
+      <div class="luz">
+        <p class="botao"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg><span><strong>Chame no WhatsApp</strong><small>(62) 99165-3028</small></span></p>
+      </div>
+      <p class="url">hs-engenharia-eletrica.vercel.app</p>
+      <p class="local">R. RP-11, Qd. 20, Lt. 20 · Residencial Prado, Senador Canedo – GO</p>
+    </div>
+  </section>
+
+  <section class="card" id="grupos" data-size="quadrado">
+    <div class="texto">
+      <p class="eyebrow">Engenharia civil e elétrica<br>Senador Canedo – GO</p>
+      <div class="luz"><img src="../site/img/logo-hs.png" alt=""></div>
+      <p class="lede">Site novo: serviços, fotos das obras, horário e orçamento pelo WhatsApp.</p>
+      <p class="url">hs-engenharia-eletrica.vercel.app</p>
+      <p class="zap"><span>WhatsApp</span> (62) 99165-3028</p>
+    </div>
+    <div class="leque">
+      <div class="celular" style="left:0;top:100px;width:200px;z-index:1;border-radius:32px;border-width:8px"><img src="../divulgacao/prints/cel-obras.png" alt=""></div>
+      <div class="celular" style="left:100px;top:0;width:200px;z-index:2;border-radius:32px;border-width:8px"><img src="../divulgacao/prints/cel-topo.png" alt=""></div>
+      <div class="celular" style="left:200px;top:120px;width:200px;z-index:3;border-radius:32px;border-width:8px"><img src="../divulgacao/prints/cel-orcamento.png" alt=""></div>
+    </div>
+  </section>
+
+  <script>
+    var id = new URLSearchParams(location.search).get('card') || 'apresentacao';
+    document.querySelectorAll('.card').forEach(function (s) { s.hidden = s.id !== id; });
+    document.body.className = document.getElementById(id).dataset.size;
+  </script>
+</body></html>

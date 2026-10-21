@@ -1,0 +1,102 @@
+<!-- MODELO: Google Analytics 4 com aviso de cookies, pela LGPD. O gtag.js só carrega depois que a pessoa aceita.
+     Como usar: injete este bloco antes de </body> no build, trocando {{GA_ID}} pelo ID da métrica (G-...), só quando o ID
+     existir (sem ID = sem aviso e sem medição). Exemplo de build: publicacao.md, "Medição".
+     A escolha fica no navegador (localStorage "aviso-cookies"); quem já aceitou é medido direto, sem ver o aviso de novo.
+     O botão "Cookies" vai para o rodapé (elemento com data-cookies, ou o primeiro <footer>) e reabre o aviso.
+     Eventos: clique_whatsapp (local = id da seção), clique_telefone, clique_instagram, clique_mapa, copiar_email
+     (elemento com data-copiar-email) e qualquer elemento com data-evento="nome_do_evento".
+     O aviso espera a abertura do site terminar (classe has-intro no <html>) e aparece 1,2 s depois.
+     Cores: ajuste as variáveis --ck-* para a identidade do cliente. -->
+<div class="ck" id="ck" role="region" aria-label="Aviso de cookies" hidden>
+  <p>Usamos cookies do Google Analytics só para contar visitas e cliques. Nada de anúncios.</p>
+  <div class="ck__acts">
+    <button type="button" class="ck__ok" data-ck="aceito">Aceitar</button>
+    <button type="button" class="ck__no" data-ck="recusado">Recusar</button>
+  </div>
+</div>
+<style>
+  .ck { --ck-fundo: #1a1816; --ck-texto: #f4f1ea; --ck-suave: #a8a29a; --ck-destaque: #c8a45a; --ck-tinta: #111111; --ck-linha: #3a3128;
+    position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: max(16px, env(safe-area-inset-bottom, 0px)); z-index: 90;
+    width: min(380px, calc(100vw - 32px)); padding: 16px 18px; border: 1px solid var(--ck-linha); border-radius: 16px;
+    background: var(--ck-fundo); color: var(--ck-texto); font-family: inherit; font-size: 14px; line-height: 1.5; box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
+    opacity: 0; transform: translateY(12px); transition: opacity .35s ease, transform .35s cubic-bezier(.2, 0, 0, 1); }
+  .ck.is-on { opacity: 1; transform: none; }
+  .ck p { margin: 0; color: var(--ck-suave); }
+  .ck__acts { display: flex; gap: 8px; margin-top: 12px; }
+  .ck button { padding: 9px 16px; border: 1px solid var(--ck-linha); border-radius: 999px; background: transparent; color: var(--ck-texto); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .ck .ck__ok { background: var(--ck-destaque); border-color: var(--ck-destaque); color: var(--ck-tinta); }
+  .ck button:focus-visible, .ck__pref:focus-visible { outline: 2px solid var(--ck-destaque); outline-offset: 3px; }
+  .ck__pref { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) { .ck { transition: none; transform: none; } }
+</style>
+<script>
+(function () {
+  var ID = '{{GA_ID}}', KEY = 'aviso-cookies';
+  var box = document.getElementById('ck');
+  var on = false, loaded = false;
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function load() {
+    on = true;
+    if (loaded) { gtag('consent', 'update', { analytics_storage: 'granted' }); return; }
+    loaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', ID);
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(s);
+  }
+  function stop() { on = false; if (loaded) gtag('consent', 'update', { analytics_storage: 'denied' }); }
+
+  // Os cliques que interessam ao negócio
+  document.addEventListener('click', function (e) {
+    if (!on) return;
+    var el = e.target.closest('a, button, [data-evento]');
+    if (!el) return;
+    var sec = el.closest('section, header, footer');
+    var local = sec ? (sec.id || sec.tagName.toLowerCase()) : 'pagina';
+    var href = el.getAttribute('href') || '';
+    if (el.hasAttribute('data-evento')) gtag('event', el.getAttribute('data-evento'), { local: local });
+    else if (/wa\.me|api\.whatsapp\.com/.test(href)) gtag('event', 'clique_whatsapp', { local: local });
+    else if (/^tel:/.test(href)) gtag('event', 'clique_telefone', { local: local });
+    else if (/instagram\.com/.test(href)) gtag('event', 'clique_instagram', { local: local });
+    else if (/google\.[^/]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/.test(href)) gtag('event', 'clique_mapa', { local: local });
+    else if (el.hasAttribute('data-copiar-email')) gtag('event', 'copiar_email');
+  });
+
+  function show() { box.hidden = false; requestAnimationFrame(function () { box.classList.add('is-on'); }); }
+  function hide() { box.classList.remove('is-on'); setTimeout(function () { box.hidden = true; }, 350); }
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-ck]');
+    if (!b) return;
+    var v = b.getAttribute('data-ck');
+    set(v);
+    if (v === 'aceito') load(); else stop();
+    hide();
+  });
+
+  // Rodapé: "Cookies" reabre o aviso
+  var foot = document.querySelector('[data-cookies]') || document.querySelector('footer');
+  if (foot) {
+    var pref = document.createElement('button');
+    pref.type = 'button';
+    pref.className = 'ck__pref';
+    pref.textContent = 'Cookies';
+    pref.addEventListener('click', show);
+    foot.appendChild(pref);
+  }
+
+  var choice = get();
+  if (choice === 'aceito') load();
+  else if (choice !== 'recusado') {
+    // Primeira visita: o aviso aparece depois da abertura, para não disputar atenção com ela
+    (function wait() {
+      if (document.documentElement.classList.contains('has-intro')) return setTimeout(wait, 300);
+      setTimeout(show, 1200);
+    })();
+  }
+})();
+</script>

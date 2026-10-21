@@ -1,0 +1,52 @@
+TEXTOS DO LANÇAMENTO · HS ENGENHARIA E ELÉTRICA
+Site: https://hs-engenharia-eletrica.vercel.app
+(Endereço provisório. Se o domínio mudar, troque aqui e gere as imagens de novo: node publicar/gerar-kit.mjs.)
+
+Revise com o cliente antes de postar.
+
+
+1. PARA OS CLIENTES (lista de transmissão ou conversa)
+
+Oi, [nome]! Tudo bem?
+A HS Engenharia e Elétrica agora tem site: https://hs-engenharia-eletrica.vercel.app
+Lá estão os serviços, as fotos das obras, o horário e o endereço. Para pedir orçamento, é só tocar no serviço e mandar a mensagem pelo WhatsApp.
+
+
+2. PARA GRUPOS
+Envie junto com a imagem grupos.jpg.
+
+Pessoal, a HS Engenharia e Elétrica está com site novo: https://hs-engenharia-eletrica.vercel.app
+Projeto, obra, instalação elétrica, iluminação em LED e regularização, com fotos das obras. Orçamento pelo WhatsApp (62) 99165-3028.
+
+
+3. LEGENDAS PARA O STATUS (uma para cada arquivo)
+
+video-vertical.mp4
+O site da HS, do começo ao fim. hs-engenharia-eletrica.vercel.app
+
+status-1-apresentacao.jpg
+Site novo no ar: serviços, fotos das obras e orçamento pelo WhatsApp. hs-engenharia-eletrica.vercel.app
+
+status-2-servicos.jpg
+Escolha o serviço e peça o orçamento pelo WhatsApp, com a mensagem pronta.
+
+status-3-obras.jpg
+Fotos tiradas nas obras: iluminação em LED, quadros de distribuição e carregador de carro elétrico.
+
+status-4-horario.jpg
+Veja se a gente está atendendo agora e o caminho até o Residencial Prado.
+
+status-5-contato.jpg
+Conte o que você precisa. Mande fotos do local no WhatsApp (62) 99165-3028.
+
+
+4. BIO DO INSTAGRAM (sugestão)
+Engenharia civil e elétrica · Projetos, obras e regularização · Senador Canedo – GO
+Link: https://hs-engenharia-eletrica.vercel.app
+
+
+COMO POSTAR
+- Status: o vídeo OU as imagens, na ordem dos números. Toque em "HD" antes de enviar, para não perder nitidez.
+- Grupos: só nos que permitem divulgação. Imagem grupos.jpg + texto 2.
+- Ao colar o link numa conversa, espere a prévia aparecer (logo, nome e descrição) antes de enviar.
+- O WhatsApp guarda a prévia de um link por um tempo: se ela mudar, um link já enviado pode continuar mostrando a antiga.

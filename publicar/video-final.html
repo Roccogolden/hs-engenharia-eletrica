@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<!-- Tela final do vídeo vertical (1080 x 1920); também é a capa. Conteúdo longe do topo e da base, que o Instagram e o
+     WhatsApp cobrem. A assinatura fecha aqui: o logo dentro da moldura de luz, como na abertura do site.
+     Gerar: node publicar/gerar-kit.mjs -->
+<style>
+  @font-face { font-family: "Archivo"; src: url("../site/fonts/archivo-latin.woff2") format("woff2"); font-weight: 100 900; font-stretch: 62% 125%; }
+  :root { --fundo: #0b0b0c; --texto: #f2f0eb; --suave: #a6a29a; --destaque: #f4b81c; --led: #ffd978; --linha: #2a2a2e; }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1080px; height: 1920px; overflow: hidden; background: var(--fundo); color: var(--texto); font-family: "Archivo", Arial, sans-serif; position: relative; }
+  .centro { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 90px 40px; }
+  .eyebrow { font-size: 34px; font-weight: 650; color: var(--destaque); }
+  .luz { position: relative; margin-top: 76px; }
+  .luz::before, .luz::after { content: ""; position: absolute; inset: -36px; pointer-events: none; }
+  .luz::before { border: 10px solid rgba(244, 184, 28, 0.2); filter: blur(6px); }
+  .luz::after { border: 3px solid var(--led); }
+  .luz img { display: block; width: 348px; }
+  .frase { margin-top: 104px; font-size: 62px; line-height: 1.1; font-weight: 760; font-stretch: 114%; letter-spacing: -0.015em; text-wrap: balance; }
+  .linha { width: 120px; height: 3px; margin: 64px auto 0; background: var(--linha); }
+  .url { margin-top: 58px; font-size: 44px; font-weight: 650; color: var(--destaque); }
+  .zap { margin-top: 22px; font-size: 42px; font-weight: 700; }
+  .zap span { color: var(--suave); font-weight: 600; }
+  .local { margin-top: 14px; font-size: 30px; font-weight: 600; color: var(--suave); }
+</style></head>
+<body>
+  <div class="centro">
+    <p class="eyebrow">Engenharia civil e elétrica · Senador Canedo – GO</p>
+    <div class="luz"><img src="../site/img/logo-hs.png" alt=""></div>
+    <p class="frase">A gente faz o projeto, executa a obra e cuida da regularização</p>
+    <div class="linha"></div>
+    <p class="url">hs-engenharia-eletrica.vercel.app</p>
+    <p class="zap"><span>WhatsApp</span> (62) 99165-3028</p>
+    <p class="local">Residencial Prado · Senador Canedo – GO</p>
+  </div>
+</body></html>

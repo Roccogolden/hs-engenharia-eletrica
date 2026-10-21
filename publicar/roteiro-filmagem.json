@@ -1,0 +1,9 @@
+[
+  { "seletor": "#inicio", "acima": 0, "rolagem_ms": 100, "pausa_ms": 2300 },
+  { "seletor": "#servicos", "acima": 72, "rolagem_ms": 1400, "pausa_ms": 3200 },
+  { "seletor": ".servicos__lista li:nth-child(5)", "acima": "30%", "rolagem_ms": 1300, "pausa_ms": 2200 },
+  { "seletor": "#obras", "acima": 72, "rolagem_ms": 1400, "pausa_ms": 2800 },
+  { "seletor": "#obras .galeria + .galeria", "acima": "22%", "rolagem_ms": 1300, "pausa_ms": 2600 },
+  { "seletor": "#contato", "acima": 72, "rolagem_ms": 1500, "pausa_ms": 3000 },
+  { "seletor": "[data-cta-final]", "acima": "58%", "rolagem_ms": 1700, "pausa_ms": 4000 }
+]
