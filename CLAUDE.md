@@ -81,7 +81,13 @@ cortina nas fotos, ✓ desenhado, botão magnético, caixa que abre a página.
 Regra do usuário: sites de clientes vão para o GitHub **Roccogolden** e para a **Vercel** (time `huiataribeiro-6837`).
 Repositório `Roccogolden/hs-engenharia-eletrica`, com o credential helper local fixado na conta Roccogolden (a conta
 ativa do `gh` neste PC é outra). Endereço: `https://hs-engenharia-eletrica.vercel.app` (em `siteUrl`, no kit e em
-`divulgacao/mensagens.txt`). Depois de cada push, conferir o deploy e o site no ar. Ao mudar a página, não refazer as
+`divulgacao/mensagens.txt`). No ar desde 20/10/2026.
+- A publicação automática a cada push ainda não está ligada: o app da Vercel no GitHub da Roccogolden só acessa
+  repositórios escolhidos. Quando o usuário liberar este (github.com/settings/installations → Vercel → Configure),
+  rode `vercel git connect` aqui. Até lá: `vercel deploy --prod --scope huiataribeiro-6837` (a CLI vai numa pasta de
+  rascunho com `npm i vercel` e roda com `node <pasta>/node_modules/vercel/dist/index.js`, porque o `npx` quebra com o
+  "&" do nome do usuário). `.vercelignore` deixa de fora as fotos originais e o kit.
+- Depois de cada publicação, conferir o deploy (`vercel inspect <url>`) e o site no ar. Ao mudar a página, não refazer as
 artes de divulgação (pedido do usuário). Kit comercial da `site-premium`: `publicar/mensagem-cliente.txt`; o contrato
 precisa da razão social e do CNPJ.
 
