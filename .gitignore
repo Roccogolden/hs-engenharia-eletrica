@@ -12,3 +12,6 @@ node_modules/
 
 # Material comercial do usuário (preços e contrato): fica só neste computador
 publicar/mensagem-cliente.txt
+
+.vercel
+.env*

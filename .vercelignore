@@ -1,0 +1,8 @@
+# Só o que o build precisa vai para a Vercel (dados/, site/, publicar/build.mjs, publicar/og-image.jpg, vercel.json)
+HS servicos eletricos*
+HS ENGENHARIA E ELETRICA.txt
+divulgacao
+publicar/filmagem
+publicar/mensagem-cliente.txt
+dist
+.env.local
